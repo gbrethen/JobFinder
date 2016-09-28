@@ -15,6 +15,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/api/jobs', function (req, res) {
     jobsData.findJobs().then(function (collection) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.send(collection);
     });
 });
