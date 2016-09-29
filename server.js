@@ -25,7 +25,7 @@ app.get('*', function (req, res) {
 });
 
 //mongoose.connect('mongodb://localhost/jobfinder');
-jobsData.connectDB('mongodb://gbrethen:BrAnDoN9991@ds041516.mlab.com:41516/jobfinder_gb')
+jobsData.connectDB('mongodb://gbrethen:BrAnDoN9991@ds029705.mlab.com:29705/heroku_8mg11xsr')
     .then(function () {
         console.log('connected to mongodb successfully!');
         jobModel.seedJobs();
