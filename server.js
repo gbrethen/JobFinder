@@ -28,7 +28,7 @@ app.get('*', function (req, res) {
 jobsData.connectDB('mongodb://gbrethen:BrAnDoN9991@ds029705.mlab.com:29705/heroku_8mg11xsr')
     .then(function () {
         console.log('connected to mongodb successfully!');
-        jobModel.seedJobs();
+        jobsData.seedJobs();
     });
 
 
