@@ -48,12 +48,11 @@ describe("save jobs", function () {
     
     var newJob = {title: 'Cook', description: 'You will be making bagels.'};
     
-    it("should pass the job to the database save function", function (done) {
-        /*request(app).post("/api/jobs").send(newJob).end(function (err, response) {
+    /*it("should pass the job to the database save function", function (done) {
             expect(dataSavedJob).to.deep.equal(newJob);
             done();
-        });*/
-    });
+        });
+    });*/
     it("should return a status of 200 to the front-end if the database saved", function () {
         
     });
