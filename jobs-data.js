@@ -11,11 +11,20 @@ var findJobs = function (query) {
     return Promise.cast(mongoose.model('jobs').find(query).exec());
 };
 
+var createJob = Promise.promisify(Job.create, {context: Job});
+var removeJob = function (query) {
+    Job.remove(query).exec();
+};
+
+//exports0
+
 exports.findJobs = findJobs;
 
 exports.connectDB = Promise.promisify(mongoose.connect, {context: mongoose});
 
-var createJob = Promise.promisify(Job.create, {context: Job});
+exports.saveJob = createJob;
+
+exports.deleteJob = removeJob;
 
 exports.seedJobs = function () {
     return findJobs({}).then(function (collection) {

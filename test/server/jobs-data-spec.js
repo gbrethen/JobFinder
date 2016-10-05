@@ -1,11 +1,11 @@
 /*jslint node:true */
-/*global require, describe, it*/
+/*global require, describe, it, before, after*/
 'use strict';
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
-var jobModel = require('../models/job');
+var jobModel = require('../../models/job');
 var Promise = require('bluebird');
-var jobsData = require('../jobs-data');
+var jobsData = require('../../jobs-data');
 
 function resetJobs() {
     return new Promise(function (resolve, reject) {
@@ -28,6 +28,10 @@ describe("get jobs", function () {
             });
     });
     
+    after(function () {
+        mongoose.connection.close();
+    });
+    
     it("should never be empty since jobs are seeded", function () {
         expect(jobs.length).to.be.at.least(1);
     });
@@ -39,4 +43,32 @@ describe("get jobs", function () {
     it("should have a job with a description", function () {
         expect(jobs[0].description).to.not.be.empty;
     });
+});
+
+describe("db save jobs", function () {
+    var job = {title: 'Cook', description: 'You will be making bagels'};
+    var jobs;
+    
+    function saveTestJob() {
+        return jobsData.saveJob(job);
+    }
+    
+    before(function (done) {
+        jobsData.connectDB('mongodb://gbrethen:BrAnDoN9991@ds041516.mlab.com:41516/jobfinder_gb')
+            .then(resetJobs)
+            //.then(function () { return jobsData.saveJob(job); })
+            .then(jobsData.findJobs)
+            .then(function setJobs(collection) {
+                jobs = collection;
+                done();
+            });
+    });
+    
+    after(function () {
+        mongoose.connection.close();
+    });
+    
+    /*it("should have one job after saving one job", function () {
+        expect(jobs).to.have.length(1);
+    });*/
 });

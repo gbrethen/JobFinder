@@ -8,17 +8,12 @@ var jobsData = require('./jobs-data');
 var app = express();
 var port = process.env.PORT || 3000;
 
+require("./jobs-service.js")(jobsData, app);
+
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
-
-app.get('/api/jobs', function (req, res) {
-    jobsData.findJobs().then(function (collection) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.send(collection);
-    });
-});
 
 app.get('*', function (req, res) {
     res.render('index');
